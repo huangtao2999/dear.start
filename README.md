@@ -1,37 +1,18 @@
-## Welcome to GitHub Pages
-
-You can use the [editor on GitHub](https://github.com/huangtao2999/dear.start/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/huangtao2999/dear.start/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+1 单据状态
+Oracle Purchasing即采购管理是ERP的重要组成部分，主要功能为编制采购需求计划，根据计划创建采购订单并跟踪订单的执行情况，处理订单的接收和退货，建立和维护供应商档案等，包括了整个采购活动的各个环节。
+主要采购单据包括申请、标准和计划采购订单、采购协议、发放等。单据的审批状态有：
+（1）未完成：指不完整的采购单据，即在单据录入窗口录入创建了单据，但尚未提交审批。
+（2）处理中：在单据编辑窗口录入后提交审批，正处于审批工作流中的单据。
+（3）已拒绝：在审批工作流中，被审批人拒绝的单据。
+（4）已退回：采购申请被采购员退回。
+（5）要求重新审批：采购订单与发放在批准后，如果单据创建人对单据的主要数据进行修改，则系统会自动修改单据状态为要求重新审批，需要创建人将单据重新提交审批，方可进行订单的进一步处理。
+2 单据控制
+在Oracle Purchasing中，单据的控制活动主要有删除、取消、暂挂、关闭、冻结等。系统一般设置为只有单据创建人具有访问、修改单据的权限，其它人只分配杳看单据的权限。
+（1）删除。对于未提交审批的单据，可以以在单据创建窗口直接删除整个单据、单据行、发运。对于已提交审批的单据，可以删除其中后来添加的未批准的行、发运和分配。删除后，订单所关联的申请会自动返回申请集，可以使用"自动创建单据"窗口，把这些未执行的申请重新分配给其它采购订单或发放。删除操作执行后，单据数据直接从系统中删除，无法再从相应界面与数据表中杳到。
+（2）取消。单据创建人可以通过完全或部分取消单据头、行、发运、分配，来终止或部分终止与供应商的现有合约关系。如果取消了采购订单实体，则不能接收或支付被取消的物料和服务，但可以支付取消前已接收的订单。另外，不能修改被取消的实体或其组件。如果某申请行已有关联的采购订单，则此行不能被取消。取消操作属不可撤消的操作，只有确保所有需要的活动均完成之后，才可以取消单据或其组件。单据被取消后，在单据汇总界面仍然显示相应数据，但单据不可访问。通过系统设置，采购员可以在取消订单的同时，选择是否同时取消采购申请，否则，申请会自动返回申请集。
+例如：与某供应商订购了某物料A与B，随后因设计变更，不再需要物料B，这时可取消包含物料B的订单行。如果物料A订购数量为30件，而生产只需要20件，在接收20件并完成后续事务处理后，可以取消订单行，则剩下的10件就会取消，而已接收的20件仍然有效。
+（3）最终关闭。可以以通过最终关闭已完成的单据、行和发运，防止对单据的修改或执行活动。单据最终关闭后，无法在相应的录入表单窗口访问该单据，也不能对最终关闭的实体执行以下活动：接收、转移、检验、交货、更正接收数量、开票、向供应商退货或退回至接收。可以审批包括最终关闭实体的单据，但不能审批在题头层最终关闭的单据。可以打印最终关闭的单据。单据关闭后，与订单关联的申请不会自动返回申请集。单据最终关闭是Orac1e Purchasing系统的内部控制活动，不会影响与供应商的合同关系，即与供应商的合同关系依然有效。
+最终关闭是不可撤消的活动，只有在确保所有需要的活动均已完成时，刁一能最终关闭单据或其组件，一般不建议执行此活动。
+（4）暂挂与发放暂挂。只有状态为"处理中"的单据可执行暂挂，单据暂挂可以在撤消审批单据的同时防止打印、接收、开票和进一步审批，直至解除暂挂。例如：在采购订单提交审批后，发现合同条款存在一定问题，在同供应商协商期间，可以先"暂挂"单据，直至问题解决后再执行"发放暂挂"。
+（5）冻结和未冻结。如果要防止再对采购订单进行任何修改或其它活动，可以冻结采购订单，冻结操作只能在题头和发放层执行。在冻结采购订单后，仍可以接收和支付已订购的货物。如果要防止接收或将发票与此采购订单匹配，则应取消或最终关闭采购订单。冻结操作属可逆操作，在控制单据界面执行"未冻结"，可以撤消冻结单据。冻结订单不能在录入表单中被访问。
+（6）关闭、接收关闭、发票关闭。Oracle Purchasing可以根据系统中"采购选项"窗口中指定的控制选项(接收关闭允差、接收关闭点和开票结算允差)，自动关闭接收及开票。一旦关闭指定行的所有发运，Oracle Purchasing将自动关闭该行；一旦关闭指定题头的所有行，Orac1e Purchasing将自动关闭单据。除系统的自动关闭外，还可以在单据控制界面手工将接收关闭或发票关闭，以控制在某期间内的订单接收及开票。例如：系统设置关闭允差为95%，如果订购了某物料100件，已接收了96件，则系统自动关闭此行的接收。如果供应商第一批送来94件，采购员认为剩余的6件可以不再需要，可以人工在单据控制界面关闭接收，则此行不可再接收。进行"关闭"后，在单据控制界面可重新"打开"单据。
